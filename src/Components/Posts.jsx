@@ -14,11 +14,13 @@ export default class Posts extends PureComponent {
     const { posts } = this.props;
 
     return (
-      <StyledUl>
-        {map(posts, ({ id, title }) => (
-          <li key={id}>{title || 'without title'}</li>
-        ))}
-      </StyledUl>
+      <div>
+        <StyledUl>
+          {map(posts, ({ id, title }) => (
+            <li key={id}>{title || 'without title'}</li>
+          ))}
+        </StyledUl>
+      </div>
     );
   }
 }
