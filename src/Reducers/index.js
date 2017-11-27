@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import reducer from './Reducer';
+import { routerReducer } from 'react-router-redux';
+import posts from './Posts';
 
 const appReducer = combineReducers({
-  reducer,
+  routing: routerReducer, // Add the reducer to your store on the `routing` key
+  posts,
 });
 
 export default appReducer;
