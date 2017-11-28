@@ -5,10 +5,9 @@ import { Link } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
-import PostsComponent from './Containers/Posts';
 import store, { history } from './store';
-
-import NewPost from './Components/NewPost';
+import PostsComponent from './Containers/Posts';
+import NewPostForm from './Containers/NewPostForm';
 
 const NoMatch = () => <div>404</div>;
 
@@ -26,7 +25,8 @@ const render = Posts =>
             </Link>
             <Switch>
               <Route exact path="/" component={Posts} />
-              <Route path="/posts/new" component={NewPost} />
+              <Route exact path="/posts" component={Posts} />
+              <Route path="/posts/new" component={NewPostForm} />
               <Route component={NoMatch} />
             </Switch>
           </div>
