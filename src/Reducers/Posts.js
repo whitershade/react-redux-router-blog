@@ -3,22 +3,33 @@ import { mapKeys } from 'lodash';
 const initialState = {
   data: {},
   isLoading: false,
+  isPushing: false,
 };
 
-const Posts = (state = initialState, { type, payload }) => {
+const PostsReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case '@POSTS/START_LOAD_ITEMS':
+    case '@POSTS/START_LOAD':
       return Object.assign({}, state, { isLoading: true });
+
+    case '@POSTS/START_PUSH':
+      return Object.assign({}, state, { isPushing: true });
 
     case '@POSTS/ADD_ITEMS':
       return Object.assign({}, state, {
-        data: mapKeys(payload, 'id'),
+        data: { ...state.data, ...mapKeys(payload, 'id') },
         isLoading: false,
       });
+
+    case '@POSTS/ADD_ITEM': {
+      return Object.assign({}, state, {
+        data: { ...state.data, [payload.id]: payload },
+        isLoading: false,
+      });
+    }
 
     default:
       return state;
   }
 };
 
-export default Posts;
+export default PostsReducer;

@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
 import store, { history } from './store';
 import PostsComponent from './Containers/Posts';
+import Post from './Containers/Post';
 import NewPostForm from './Containers/NewPostForm';
 
 const NoMatch = () => <div>404</div>;
@@ -24,9 +25,10 @@ const render = Posts =>
               New post
             </Link>
             <Switch>
-              <Route exact path="/" component={Posts} />
-              <Route exact path="/posts" component={Posts} />
               <Route path="/posts/new" component={NewPostForm} />
+              <Route path="/posts/:id" component={Post} />
+              <Route path="/posts" component={Posts} />
+              <Route path="/" component={Posts} />
               <Route component={NoMatch} />
             </Switch>
           </div>
@@ -39,4 +41,4 @@ const render = Posts =>
 render(PostsComponent);
 
 if (module.hot)
-  module.hot.accept('./Components/App', () => render(PostsComponent));
+  module.hot.accept('./Containers/Posts', () => render(PostsComponent));

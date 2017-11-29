@@ -3,10 +3,10 @@ import { reducer as form } from 'redux-form';
 import { routerReducer as routing } from 'react-router-redux';
 import posts from './Posts';
 
-const appReducer = combineReducers({
+const Reducers = combineReducers({
   routing,
   form,
   posts,
 });
 
-export default appReducer;
+export default Reducers;

@@ -2,9 +2,10 @@ import { connect } from 'react-redux';
 import Component from '../Components/Posts';
 import { loadItems } from '../Actions/Posts';
 
-function mapStateToProps(state) {
+function mapStateToProps({ posts: { data: posts, isLoading } }) {
   return {
-    posts: state.posts.data,
+    posts,
+    isLoading,
   };
 }
 
