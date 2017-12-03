@@ -28,6 +28,13 @@ export function addItem(item) {
   };
 }
 
+export function removeItem(id) {
+  return {
+    type: '@POSTS/REMOVE_ITEM',
+    payload: id,
+  };
+}
+
 export function loadItemsError() {
   return {
     type: '@POSTS/LOAD_ERROR',
@@ -77,6 +84,22 @@ export function createItem(values) {
     axios
       .post(getApiUrl('posts'), values)
       .then(() => {
+        dispatch(push('/'));
+      })
+      .catch(() => {
+        dispatch(pushItemError());
+      });
+  };
+}
+
+export function deleteItem(id) {
+  return dispatch => {
+    dispatch(startPush());
+
+    axios
+      .delete(getApiUrl(`posts/${id}`))
+      .then(() => {
+        dispatch(removeItem(id));
         dispatch(push('/'));
       })
       .catch(() => {

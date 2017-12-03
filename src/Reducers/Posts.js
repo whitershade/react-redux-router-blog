@@ -1,4 +1,4 @@
-import { mapKeys } from 'lodash';
+import { mapKeys, omit } from 'lodash';
 
 const initialState = {
   data: {},
@@ -18,6 +18,12 @@ const PostsReducer = (state = initialState, { type, payload }) => {
       return Object.assign({}, state, {
         data: { ...state.data, ...mapKeys(payload, 'id') },
         isLoading: false,
+      });
+
+    case '@POSTS/REMOVE_ITEM':
+      return Object.assign({}, state, {
+        data: omit(state.data, payload),
+        isPushing: false,
       });
 
     case '@POSTS/ADD_ITEM': {

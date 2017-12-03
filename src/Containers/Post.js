@@ -1,22 +1,23 @@
 import { connect } from 'react-redux';
-import { last } from 'lodash';
 import Component from '../Components/Post';
-import { loadItem as LoadPost } from '../Actions/Posts';
+import {
+  loadItem as LoadPost,
+  deleteItem as deletePost,
+} from '../Actions/Posts';
 
 function mapStateToProps(
   { posts: { data: posts } },
-  { location: { pathname } },
+  { match: { params: { id } } },
 ) {
-  const id = last(pathname.split('/'));
-
   return {
     id,
-    post: posts[id] || {},
+    post: posts[id],
   };
 }
 
 const mapDispatchToProps = dispatch => ({
   LoadPost: id => dispatch(LoadPost(id)),
+  deletePost: id => dispatch(deletePost(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Component);
