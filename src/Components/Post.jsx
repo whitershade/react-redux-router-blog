@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledDiv = styled.div``;
@@ -32,6 +33,9 @@ export default class Post extends PureComponent {
         <p>{post.categories}</p>
         <p>{post.content}</p>
         <button onClick={this.onDeleteButtonClick}>Delete post</button>
+        <Link href={`/posts/${post.id}/edit`} to={`/posts/${post.id}/edit`}>
+          Edit
+        </Link>
       </StyledDiv>
     ) : (
       'Loading...'

@@ -11,6 +11,12 @@ export default class Statefull extends PureComponent {
     this.state = {};
   }
 
+  componentDidMount() {
+    const { id, foo } = this.props;
+
+    if (id) foo(id);
+  }
+
   render() {
     return <StyledDiv />;
   }

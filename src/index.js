@@ -7,7 +7,8 @@ import { Provider } from 'react-redux';
 import store, { history } from './store';
 import PostsComponent from './Containers/Posts';
 import Post from './Containers/Post';
-import NewPostForm from './Containers/NewPostForm';
+import PostFormNew from './Containers/PostFormNew';
+import PostFormEdit from './Containers/PostFormEdit';
 
 const NoMatch = () => <div>404</div>;
 
@@ -22,7 +23,8 @@ ReactDOM.render(
           New post
         </Link>
         <Switch>
-          <Route path="/posts/new" component={NewPostForm} />
+          <Route path="/posts/new" component={PostFormNew} />
+          <Route path="/posts/:id/edit" component={PostFormEdit} />
           <Route path="/posts/:id" component={Post} />
           <Route path="/posts" component={PostsComponent} />
           <Route path="/" component={PostsComponent} />
@@ -31,5 +33,5 @@ ReactDOM.render(
       </div>
     </Router>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
