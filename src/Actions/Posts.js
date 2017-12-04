@@ -1,6 +1,21 @@
 import axios from 'axios';
+import firebase from 'firebase';
+import { compact } from 'lodash';
 import { push } from 'react-router-redux';
 import { getApiUrl } from '../Constants/App';
+
+// Initialize Firebase
+const config = {
+  apiKey: 'AIzaSyBEZ3LoV1ahLBhScuYfpFz4VX2-tLd-rtI',
+  authDomain: 'udemy-react-redux-router-blog.firebaseapp.com',
+  databaseURL: 'https://udemy-react-redux-router-blog.firebaseio.com',
+  projectId: 'udemy-react-redux-router-blog',
+  storageBucket: 'udemy-react-redux-router-blog.appspot.com',
+  messagingSenderId: '892247790256',
+};
+
+firebase.initializeApp(config);
+const database = firebase.database();
 
 export function startLoad() {
   return {
@@ -49,16 +64,9 @@ export function pushItemError() {
 
 export function loadItems() {
   return dispatch => {
-    dispatch(startLoad());
-
-    axios
-      .get(getApiUrl('posts'))
-      .then(({ data }) => {
-        dispatch(addItems(data));
-      })
-      .catch(() => {
-        dispatch(loadItemsError());
-      });
+    database.ref('posts/').on('value', snapshot => {
+      dispatch(addItems(snapshot.val()));
+    });
   };
 }
 
@@ -66,28 +74,26 @@ export function loadItem(id) {
   return dispatch => {
     dispatch(startLoad());
 
-    axios
-      .get(getApiUrl(`posts/${id}`))
-      .then(({ data }) => {
-        dispatch(addItem(data));
-      })
-      .catch(() => {
-        dispatch(loadItemsError());
+    firebase
+      .database()
+      .ref(`posts/${id}`)
+      .once('value')
+      .then(snapshot => {
+        dispatch(addItem(snapshot.val()));
       });
   };
 }
 
 export function createItem(values) {
   return dispatch => {
-    dispatch(startPush());
+    const id = String(Date.now());
 
-    axios
-      .post(getApiUrl('posts'), values)
+    database
+      .ref(`posts/${id}`)
+      .set({ id, ...values })
       .then(() => {
+        dispatch(addItem({ id, ...values }));
         dispatch(push('/'));
-      })
-      .catch(() => {
-        dispatch(pushItemError());
       });
   };
 }
@@ -96,14 +102,12 @@ export function deleteItem(id) {
   return dispatch => {
     dispatch(startPush());
 
-    axios
-      .delete(getApiUrl(`posts/${id}`))
+    database
+      .ref(`posts/${id}`)
+      .remove()
       .then(() => {
         dispatch(removeItem(id));
         dispatch(push('/'));
-      })
-      .catch(() => {
-        dispatch(pushItemError());
       });
   };
 }

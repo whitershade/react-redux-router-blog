@@ -16,7 +16,7 @@ const PostsReducer = (state = initialState, { type, payload }) => {
 
     case '@POSTS/ADD_ITEMS':
       return Object.assign({}, state, {
-        data: { ...state.data, ...mapKeys(payload, 'id') },
+        data: mapKeys(payload, 'id'),
         isLoading: false,
       });
 
