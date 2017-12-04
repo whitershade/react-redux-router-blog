@@ -11,7 +11,7 @@ export default class Statefull extends PureComponent {
     this.state = {};
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { id, foo } = this.props;
 
     if (id) foo(id);

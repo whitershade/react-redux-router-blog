@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const StyledUl = styled.ul``;
 
 export default class Posts extends PureComponent {
-  componentDidMount() {
+  componentWillMount() {
     this.props.loadItems();
   }
 

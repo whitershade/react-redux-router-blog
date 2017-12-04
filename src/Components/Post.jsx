@@ -12,7 +12,7 @@ export default class Post extends PureComponent {
     this.onDeleteButtonClick = this.onDeleteButtonClick.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { id, post, LoadPost } = this.props;
 
     if (!post) LoadPost(id);

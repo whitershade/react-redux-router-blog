@@ -9,7 +9,7 @@ export default class PostForm extends PureComponent {
     return value ? undefined : 'Required';
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { id, post, LoadPost } = this.props;
 
     if (id && !post) LoadPost(id);
@@ -17,8 +17,6 @@ export default class PostForm extends PureComponent {
 
   render() {
     const { constructor: { required }, props: { handleSubmit, id } } = this;
-
-    console.log(id);
 
     return (
       <form onSubmit={handleSubmit}>
