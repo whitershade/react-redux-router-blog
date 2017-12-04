@@ -1,8 +1,5 @@
-import axios from 'axios';
 import firebase from 'firebase';
-import { compact } from 'lodash';
 import { push } from 'react-router-redux';
-import { getApiUrl } from '../Constants/App';
 
 // Initialize Firebase
 const config = {
@@ -11,7 +8,7 @@ const config = {
   databaseURL: 'https://udemy-react-redux-router-blog.firebaseio.com',
   projectId: 'udemy-react-redux-router-blog',
   storageBucket: 'udemy-react-redux-router-blog.appspot.com',
-  messagingSenderId: '892247790256',
+  messagingSenderId: '892247790256'
 };
 
 firebase.initializeApp(config);
@@ -19,46 +16,46 @@ const database = firebase.database();
 
 export function startLoad() {
   return {
-    type: '@POSTS/START_LOAD',
+    type: '@POSTS/START_LOAD'
   };
 }
 
 export function startPush() {
   return {
-    type: '@POSTS/START_PUSH',
+    type: '@POSTS/START_PUSH'
   };
 }
 
 export function addItems(items) {
   return {
     type: '@POSTS/ADD_ITEMS',
-    payload: items,
+    payload: items
   };
 }
 
 export function addItem(item) {
   return {
     type: '@POSTS/ADD_ITEM',
-    payload: item,
+    payload: item
   };
 }
 
 export function removeItem(id) {
   return {
     type: '@POSTS/REMOVE_ITEM',
-    payload: id,
+    payload: id
   };
 }
 
 export function loadItemsError() {
   return {
-    type: '@POSTS/LOAD_ERROR',
+    type: '@POSTS/LOAD_ERROR'
   };
 }
 
 export function pushItemError() {
   return {
-    type: '@POSTS/PUSH_ERROR',
+    type: '@POSTS/PUSH_ERROR'
   };
 }
 
