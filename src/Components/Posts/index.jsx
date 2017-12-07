@@ -3,8 +3,17 @@ import PropTypes from 'prop-types';
 import { map } from 'lodash';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import './styles.css';
 
-const StyledUl = styled.ul``;
+const StyledUl = styled.ul`
+  padding: 0;
+  margin: 0;
+  list-style: none;
+`;
+const StyledLi = styled.li`
+  color: white;
+  background-color: white;
+`;
 
 export default class Posts extends PureComponent {
   componentWillMount() {
@@ -18,11 +27,11 @@ export default class Posts extends PureComponent {
       <div>
         <StyledUl>
           {map(posts, ({ id, title }) => (
-            <li key={id}>
+            <StyledLi key={id}>
               <Link to={`/posts/${id}`} href={`/posts/${id}`}>
                 {title || 'without title'}
               </Link>
-            </li>
+            </StyledLi>
           ))}
         </StyledUl>
       </div>
