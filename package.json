@@ -2,6 +2,7 @@
   "name": "react-redux-firebase-blog",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://whitershade.github.io/react-redux-router-blog/",
   "dependencies": {
     "firebase": "^4.7.0",
     "history": "^4.7.2",

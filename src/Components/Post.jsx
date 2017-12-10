@@ -7,15 +7,20 @@ import Modal from './Modal';
 const StyledDiv = styled.div``;
 
 export default class Post extends PureComponent {
-  constructor() {
-    super();
-    this.onDeleteButtonClick = this.onDeleteButtonClick.bind(this);
-    this.changeModalState = this.changeModalState.bind(this);
+  static propTypes = {
+    post: PropTypes.object,
+    id: PropTypes.string.isRequired,
+    LoadPost: PropTypes.func.isRequired,
+    deletePost: PropTypes.func.isRequired,
+  };
 
-    this.state = {
-      isModalOpen: false,
-    };
-  }
+  static defaultProps = {
+    post: null,
+  };
+
+  state = {
+    isModalOpen: false,
+  };
 
   componentWillMount() {
     const { id, post, LoadPost } = this.props;
@@ -23,17 +28,14 @@ export default class Post extends PureComponent {
     if (!post) LoadPost(id);
   }
 
-  onDeleteButtonClick() {
+  onDeleteButtonClick = () => {
     const { id, deletePost } = this.props;
 
     deletePost(id);
-  }
+  };
 
-  changeModalState() {
-    const { isModalOpen } = this.state;
-
-    this.setState({ isModalOpen: !isModalOpen });
-  }
+  changeModalState = () =>
+    this.setState(({ isModalOpen }) => ({ isModalOpen: !isModalOpen }));
 
   render() {
     const { props: { post }, state: { isModalOpen } } = this;
@@ -60,14 +62,3 @@ export default class Post extends PureComponent {
     );
   }
 }
-
-Post.propTypes = {
-  post: PropTypes.object,
-  id: PropTypes.string.isRequired,
-  LoadPost: PropTypes.func.isRequired,
-  deletePost: PropTypes.func.isRequired,
-};
-
-Post.defaultProps = {
-  post: null,
-};
